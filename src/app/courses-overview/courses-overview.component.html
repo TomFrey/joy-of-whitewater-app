@@ -1,7 +1,7 @@
 <p>courses-overview works!</p>
 
-<div><span>Name: </span>{{courses[0].name}}</div>
-<div><span>Beschreibung: </span>{{courses[0].description}}</div>
+<!--<div><span>Name: </span>{{courses[0].name}}</div>-->
+<!--<div><span>Beschreibung: </span>{{courses[0].description}}</div>-->
 
 <p>Kurs-Tabelle</p>
 
@@ -17,12 +17,12 @@
   <th>Guide</th>
   <tr *ngFor="let course of courses">
     <td>{{ course.name }}</td>
-    <td>{{ course.level }}</td>
-    <td>{{ course.description }}</td>
-    <td>{{ course.meetingPoint }}</td>
-    <td>{{ course.price }}</td>
-    <td>{{ course.fromDate }}</td>
-    <td>{{ course.toDate }}</td>
+    <td>{{ course.kursStufe }}</td>
+    <td>{{ course.beschreibung }}</td>
+    <td>{{ course.treffpunkt }}</td>
+    <td>{{ course.preisKurs }}</td>
+    <td>{{ course.vonDatum }}</td>
+    <td>{{ course.bisDatum }}</td>
     <td>{{ course.guide }}</td>
   </tr>
   </tbody>

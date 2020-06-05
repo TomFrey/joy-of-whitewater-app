@@ -1,10 +1,10 @@
 export interface Course {
   name: string;
-  description: string;
-  level: string;
-  meetingPoint: string;
+  beschreibung: string;
+  kursStufe: string;
+  treffpunkt: string;
   guide: string;
-  price: number;
-  fromDate: string;
-  toDate: string;
+  preisKurs: number;
+  vonDatum: string;
+  bisDatum: string;
 }
