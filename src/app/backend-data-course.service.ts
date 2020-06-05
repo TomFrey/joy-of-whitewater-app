@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+import { Course } from './types/joyOfWhitewater';
+
 @Injectable({
   providedIn: 'root'
 })
