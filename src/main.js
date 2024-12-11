@@ -1,6 +1,13 @@
-import './assets/main.css'
+import './scss/main.scss';
+import router from './router';
+// import '@material/web/menu/menu.js';
+// import '@material/web/menu/menu-item.js';
 
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from 'vue';
+import App from './App.vue';
 
-createApp(App).mount('#app')
+
+
+const app = createApp(App);
+app.use(router);
+app.mount('#app');

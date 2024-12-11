@@ -1,0 +1,112 @@
+/**
+ * Base
+ */
+ @import './base/specifications';
+ @import './base/grids';
+
+ /**
+ * Components
+ */
+ @import './components/spinner';
+ 
+
+#app {
+  max-width: $maxWidth;
+  margin: 0 auto;
+  padding: 2*$basicHeight 2*$basicWidth;
+  font-weight: normal;
+}
+
+
+.app-wrapper{
+  @include standardTextFont();
+
+  display: grid;
+  grid: [row1] "grid-header"   auto [row1-end]
+        [row2] "grid-nav"      auto [row2-end]
+        [row3] "grid-main"     auto [row3-end]
+        [row4] "grid-footer"   auto [row4-end]
+        / 100%;
+
+  background-color: $standardBackgroundColor;
+  margin-top: $basicHeight;
+
+
+  header{
+      grid-area: grid-header;
+  }
+
+  
+  nav{
+      grid-area: grid-nav;
+      background-color: $navBackgroundColor;
+  }
+
+
+  main{
+      grid-area: grid-main;
+      background-color: $standardBackgroundColor;
+      padding: 2*$basicHeight $basicWidth;
+  }
+
+
+  footer{
+      grid-area: grid-footer;
+      padding: 2*$basicHeight 0;
+     
+      .footer-wrapper{
+          display: flex;
+          flex-flow: column nowrap;
+          align-items: center;
+      }
+  }
+
+
+  .side-space--left, .side-space--right{
+      display: none;
+  }
+}
+
+
+
+
+
+/* *************************************************** */
+/* *********** ab hier für tablet ******************* */
+@media screen and (min-width: $breakpoint-medium) { //wenn Bildschirm grösser als, dann...
+
+
+}
+
+
+/* *************************************************** */
+/* *********** ab hier für desktop ******************* */
+@media screen and (min-width: $breakpoint-large) { //wenn Bildschirm grösser als, dann...
+
+  .app-wrapper{
+    display: grid;
+    grid: [row1] "grid-left grid-header grid-right"  auto [row1-end]
+          [row2] "grid-left grid-nav    grid-right"  auto [row2-end]
+          [row3] "grid-left grid-main   grid-right"  auto [row3-end]
+          [row4] "grid-left grid-footer grid-right"  auto [row4-end]
+          / 15% 70% 15%;
+
+  
+    .side-space--left, .side-space--right{
+        display: block;
+    }
+
+    .side-space--left{
+      grid-area: grid-left;
+      background-color: red;
+    }
+
+    .side-space--right{
+      grid-area: grid-right;
+      background-color: red;
+    }
+  }
+
+
+}
+

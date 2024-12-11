@@ -1,0 +1,25 @@
+.spinner{
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    margin: 3*$basicHeight;
+}
+
+
+/* *************************************************** */
+/* *********** ab hier für tablet ******************* */
+@media screen and (min-width: $breakpoint-medium) { //wenn Bildschirm grösser als, dann...
+
+
+}
+
+
+/* *************************************************** */
+/* *********** ab hier für desktop ******************* */
+@media screen and (min-width: $breakpoint-large) { //wenn Bildschirm grösser als, dann...
+
+
+}
+
+
+

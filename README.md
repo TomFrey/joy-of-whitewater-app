@@ -30,4 +30,4 @@ yarn build
 
 Basierend auf yarn 4.3.1
 Applikation starten mit yarn dev
-Applikation läuft unter: http://localhost:5173
+Applikation läuft unter: http://localhost:3000
