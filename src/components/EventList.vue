@@ -26,7 +26,26 @@
         }
 
     });
-</script>
+
+    /**
+     * Die 'Event' Component sagt der 'EventList' Component mit dem '@event-deleted' event,
+     * welcher Event gelöscht wurde. Die 'EventList' Component entfernt den entsprechenden Event dann
+     * aus der Liste. Damit der Event sofort verschwindet und nicht erst nach einem Refresh.
+     * 
+     * @param id 
+     */
+    const removeEventFromList = (id) => {
+        //console.log('removeEventFromList -> '+ id);
+
+        jowEvents.value.forEach((event, index) => {
+            if(event.id === id){
+                jowEvents.value.splice(index, 1);
+                return;
+            }
+            //console.log('id -> ' + event.id);
+        });
+    }
+</script>   
 
 
 
@@ -38,7 +57,7 @@
         <PulseLoader :color="'#000000'" :size="'25px'" />
     </div>
     <div v-else>
-        <Event v-for="jowEvent in jowEvents" :key="jowEvent.id" :jowEvent="jowEvent"/>
+        <Event v-for="jowEvent in jowEvents" :key="jowEvent.id" :jowEvent="jowEvent" @event-deleted="removeEventFromList" />
     </div>
 
 </template>

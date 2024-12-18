@@ -7,6 +7,10 @@
    });
 
 
+   const emit = defineEmits(['eventDeleted', 'eventCopied']);   
+
+
+
    const showEvent = (isShow) => {
     if (isShow === 1) {
         return 'sichtbar'
@@ -71,13 +75,17 @@
             const response = await fetch('https://digitalriver.me/api/v1/events/'+id, {
                 method: 'DELETE',
                 headers: {
-                    'Authorization': config.production.token,
+                    'Authorization': config.production.token    ,
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 }
             });
 
             console.log('response -> ' + response.status);
+            if (response.status === 200) {  
+                emit('eventDeleted', id)
+            }
+
               
         } catch (error) {
             console.log('Error deleting joyOfWhitewater event: ' + error);
