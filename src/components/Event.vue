@@ -1,5 +1,6 @@
 <script setup>
-   import { defineProps, ref } from 'vue';
+    import { defineProps, ref } from 'vue';
+    import config from '@/appConfig.js'
 
    defineProps({
     jowEvent: Object
@@ -13,26 +14,76 @@
     return 'ausgeblendet'
    };
 
-
+   let textMoreButton = ref('mehr Details ...');
    let showEventDetail = ref('hide');
    const toggleEventDetail = () => {
         if(showEventDetail.value === 'hide'){
-            showEventDetail.value = 'show'; 
+            showEventDetail.value = 'show';
+            textMoreButton = 'weniger Details ...'; 
         }else{
             showEventDetail.value = 'hide';
+            textMoreButton = 'mehr Details ...'; 
         }
    }
 
-   const saveEvent = () => {
-       console.log('saveEvent -> ');
+   const saveEvent = async(id, data) => {
+        console.log('saveEvent -> '+ id);
+        //Id entfernen, ist der key der auf der DB generiert wird.
+        delete data.id;
+        console.log('dataWithoutId -> ' + JSON.stringify(data));
+
+       try {
+            const response = await fetch('https://digitalriver.me/api/v1/events/'+id, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': config.production.token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)   //'{"beschreibung": "Das ist unser..."}'  // -> i.O.
+               // body: '{"beschreibung": "hardcoded..."}'  // -> i.O.
+               // body: '{"wirdAngezeigt": 1}'                // -> i.O.
+               //  body: '{"stateId": 2}'                   // -> i.O.
+            });
+
+            console.log('response -> ' + response.status);
+              
+        } catch (error) {
+            console.log('Error saving joyOfWhitewater event: ' + error);
+        } finally {
+            //isLoading.value = false;
+           
+            console.log('data 2 -> ' + data);
+            console.log('data 3 -> ' + JSON.stringify(data));
+        }
    }
+
 
    const copyEvent = () => {
        console.log('copyEvent -> ');
    }
 
-   const deleteEvent = () => {
-       console.log('deleteEvent -> ');
+
+   const deleteEvent = async(id) => {
+       console.log('deleteEvent -> ' + id);
+
+       try {
+            const response = await fetch('https://digitalriver.me/api/v1/events/'+id, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': config.production.token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            console.log('response -> ' + response.status);
+              
+        } catch (error) {
+            console.log('Error deleting joyOfWhitewater event: ' + error);
+        } finally {
+            //isLoading.value = false;
+        }
    }
 
 </script>
@@ -41,7 +92,7 @@
 
 <template>
 
-    <div class="event-item-wrapper" @click="toggleEventDetail()">
+    <div class="event-item-wrapper">
 
         <div class="event-item-and-action-wrapper">
             <div class="event-item">
@@ -56,7 +107,7 @@
             </div>
             <div class="event-item-action-wrapper">
                 <div class="event-item-action">
-                    <div class="event-action event-item-action--save" @click.stop="saveEvent()">
+                    <div class="event-action event-item-action--save" @click.stop="saveEvent(jowEvent.id, jowEvent)">
                         <span>save</span>
                         <img src="@/assets/images/icons/save.svg" alt="Event speichern">
                     </div>
@@ -64,7 +115,7 @@
                         <span>copy</span>
                         <img src="@/assets/images/icons/copy.svg" alt="Event kopieren">
                     </div>
-                    <div class="event-action event-item-action--del" @click.stop="deleteEvent()">
+                    <div class="event-action event-item-action--del" @click.stop="deleteEvent(jowEvent.id)">
                         <span>delete</span>
                         <img src="@/assets/images/icons/delete.svg" alt="Event löschen">
                     </div>
@@ -78,7 +129,9 @@
             <div class="event-item-details">
                 <div class="event-item-id">{{ jowEvent.id }}</div>
                 <div class="event-item-state">{{ jowEvent.stateId }}</div>
-                <div class="event-item-description">{{ jowEvent.beschreibung }}</div>
+                <div class="event-item-description">
+                    <textarea v-model="jowEvent.beschreibung" id="" cols="30" rows="10"></textarea> 
+                </div>
                 <div class="event-item-meetingpoint">{{ jowEvent.treffpunkt }}</div>
                 <div class="event-item-price-course">{{ jowEvent.preisKurs }}</div>
                 <div class="event-item-price-material">{{ jowEvent.preisMaterial }}</div>
@@ -90,6 +143,8 @@
                 <div class="event-item-final-date-to-register">{{ jowEvent.anmeldeSchluss }}</div>
             </div>
         </div>
+        <button class="event-item-action-detail" @click="toggleEventDetail()">{{ textMoreButton }}</button>
+        
     </div>
    
    
@@ -102,10 +157,9 @@
 
     .event-item-wrapper{
         display: block;
-        text-decoration: none;
+       // text-decoration: none;
         color: $standardTextColor;
-        margin-bottom: 3*$basicHeight;
-        cursor: pointer;
+        margin-bottom: 3*$basicHeight;       
     }
 
     .event-item-and-action-wrapper{
@@ -177,12 +231,13 @@
 
     .event-action{
         padding: 0.5*$basicHeight $basicWidth;
-        text-decoration: none;
+        //text-decoration: none;
         border: 1px solid black;
         display: flex;
         flex-flow: row nowrap;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
 
         span{
             padding-right: $basicWidth;
@@ -201,6 +256,13 @@
     }
     .event-item-action--del{
         grid-area: del;
+    }
+
+    .event-item-action-detail{
+        cursor: pointer;
+        padding: 0.5*$basicHeight $basicWidth;
+        margin-bottom: 3*$basicHeight;
+        background-color:white; 
     }
 
 
@@ -231,7 +293,6 @@
         padding: $basicHeight $basicWidth;
 
         background-color: #D6D9DC;
-        margin-bottom: 3*$basicHeight;
     }
 
     .event-item-id{
