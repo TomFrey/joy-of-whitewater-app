@@ -2,7 +2,7 @@
     import { ref } from 'vue'; 
     import Navigation from '@/components/Navigation.vue';
     import Header from '@/components/Header.vue';
-    import EmailField from '@/components/forms/EmailField.vue';   
+    import LoginForm from '@/components/forms/LoginForm.vue';   
 </script>
 
 
@@ -26,7 +26,7 @@
                 </div>
                 
 
-                <EmailField />
+               <LoginForm />
 
             </div>  
         </main>
