@@ -2,6 +2,7 @@
     import { ref } from 'vue'; 
     import Navigation from '@/components/Navigation.vue';
     import Header from '@/components/Header.vue';
+    import EmailField from '@/components/forms/EmailField.vue';   
 </script>
 
 
@@ -20,8 +21,13 @@
 
         <main>
             <div class="main-wrapper">
-                <!-- <img class="logo-main-page" :src="logo" alt=""> -->
-                <h1> Home </h1>    
+                <div class="home-title-wrapper">
+                    <v-icon class="home-title-icon" icon="mdi-home" size="x-large"/> <h1> Home </h1>   
+                </div>
+                
+
+                <EmailField />
+
             </div>  
         </main>
 
@@ -39,3 +45,17 @@
         </div>
     </div>
 </template>
+
+<style lang="scss" scoped>
+    @import '@/scss/base/specifications';
+
+    .home-title-wrapper{
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+
+        .home-title-icon{
+            margin-right: $basicWidth;
+        }
+    }
+</style>
