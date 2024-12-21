@@ -104,7 +104,9 @@
 
         <div class="event-item-and-action-wrapper">
             <div class="event-item">
-                <div class="event-item-name">{{ jowEvent.name }}</div>
+                <div class="event-item-name">
+                    <v-text-field v-model="jowEvent.name" label="Name" variant="outlined"></v-text-field>
+                </div>
                 <div class="event-item-boat">{{ jowEvent.sportArt }}</div>
                 <div class="event-item-from">{{ jowEvent.vonDatum }}</div>
                 <div class="event-item-to">{{ jowEvent.bisDatum }}</div>

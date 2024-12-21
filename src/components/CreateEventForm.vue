@@ -1,4 +1,6 @@
 <script setup>
+   // import VBtn from 'vuetify/lib/components/VBtn'
+
     // import { inject } from 'vue';
     // const $events = inject('$events');
 
@@ -70,6 +72,8 @@ const handleSubmit = () => {
 
 
 <template>
+
+     <v-btn color="primary">Hello, world!</v-btn>
 
     <h2> Formular um ein neues event zu generieren</h2>
    
